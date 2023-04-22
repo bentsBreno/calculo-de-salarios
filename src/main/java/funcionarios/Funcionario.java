@@ -6,20 +6,30 @@ public abstract class Funcionario {
     protected String cpf;
     protected double taxaComissao;
     protected double vendasBrutas;
+    protected Double salario;
+    protected Double horasTrabalhadas;
 
-    public Funcionario(String nome, String cpf, double taxaComissao, double vendasBrutas){
+    public Funcionario(String nome,
+                       String cpf,
+                       double taxaComissao,
+                       double vendasBrutas,
+                       Double salario,
+                       Double horasTrabalhadas){
         this.nome = nome;
         this.cpf = cpf;
         this.taxaComissao = taxaComissao;
         this.vendasBrutas = vendasBrutas;
+        this.salario = salario;
+        this.horasTrabalhadas = horasTrabalhadas;
     }
 
-    public Funcionario(String nome, String cpf){
+    public Funcionario(
+            String nome,
+            String cpf,
+            Double salario){
         this.nome = nome;
         this.cpf = cpf;
-    }
-
-    public Funcionario(){
+        this.salario = salario;
     }
 
     public abstract double getRendimentos();
@@ -54,5 +64,17 @@ public abstract class Funcionario {
 
     public void setVendasBrutas(double vendasBrutas) {
         this.vendasBrutas = vendasBrutas;
+    }
+
+    public Double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Double salario) {
+        this.salario = salario;
+    }
+
+    public void setHorasTrabalhadas(Double horasTrabalhadas) {
+        this.horasTrabalhadas = horasTrabalhadas;
     }
 }
