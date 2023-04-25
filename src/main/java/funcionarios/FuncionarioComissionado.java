@@ -11,6 +11,6 @@ public class FuncionarioComissionado extends Funcionario{
 
     @Override
     public double getRendimentos() {
-        return taxaComissao * vendasBrutas;
+        return salario + (taxaComissao * 0.01) * vendasBrutas;
     }
 }

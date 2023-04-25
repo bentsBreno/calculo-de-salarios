@@ -8,7 +8,4 @@ public class FuncionarioComissionadoBaseSalario extends FuncionarioComissionado{
                                               Double salario){
         super(nome, CPF, taxaComissao, vendasBrutas, salario);
     }
-    public double getRendimentos(){
-        return salario + (taxaComissao * vendasBrutas);
-    }
 }
