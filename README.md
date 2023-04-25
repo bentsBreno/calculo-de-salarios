@@ -27,10 +27,10 @@ Lab3_NomeAluno1_NomeAluno2.zip)
 
 Escrever um programa Java que realize a computação da folha de pagamentos de uma empresa. Nesta
 empresa, os funcionários que são comissionados recebem uma porcentagem de suas vendas
-(FuncionarioComissionado), enquanto funcionários comissionados com salário base recebem o salário base
+(FuncionarioComissionadoTest), enquanto funcionários comissionados com salário base recebem o salário base
 mais um percentual de suas vendas (FuncionarioComissionadoBaseSalario).
 
-O cálculo dos rendimentos para o FuncionarioComissionado é feito pela comissão X o percentual de
+O cálculo dos rendimentos para o FuncionarioComissionadoTest é feito pela comissão X o percentual de
 vendas. Para FuncionarioComissionadoBaseSalario, usa-se também o salário base + (comissão X o
 percentual de vendas).
 
