@@ -10,7 +10,7 @@ public class FuncionarioAssalariadoTest {
 
     @Before
     public void inicializar() {
-        paulo = new FuncionarioAssalariado("Paulo", "67890", 3000);
+        paulo = new FuncionarioAssalariado("Paulo", "67890", 3000.00);
     }
     @Test
     public void InstanciaFuncionario_ValidaCalculoRendimento() {
