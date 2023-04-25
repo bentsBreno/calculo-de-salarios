@@ -9,7 +9,6 @@ public class FuncionarioAssalariado extends Funcionario{
         this.salarioSemanal = salario;
     }
 
-    //TODO rever isso
     @Override
     public double getRendimentos() {
         return salarioSemanal;
