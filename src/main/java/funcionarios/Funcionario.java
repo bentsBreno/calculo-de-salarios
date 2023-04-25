@@ -47,6 +47,7 @@ public abstract class Funcionario {
     }
 
     public void setCpf(String cpf) {
+        validarCpf(cpf);
         this.cpf = cpf;
     }
 
@@ -76,5 +77,33 @@ public abstract class Funcionario {
 
     public void setHorasTrabalhadas(Double horasTrabalhadas) {
         this.horasTrabalhadas = horasTrabalhadas;
+    }
+
+    private void validarCpf(String cpf) {
+
+        String cpf_validar = cpf.substring(0, cpf.length() - 2);
+        int reverso = 10;
+        int total = 0;
+        for (int index = 0; index < 19; index++) {
+            if (index > 8) {
+                index -= 9;
+            }
+            total += (int)(cpf_validar.charAt(index)) * reverso;
+            reverso--;
+            if (reverso < 2) {
+                reverso = 11;
+                int d = 11 - (total % 11);
+                if (d > 9) {
+                    d = 0;
+                }
+                total = 0;
+                cpf_validar += d;
+            }
+        }
+        boolean sequencia = cpf_validar.equals(cpf_validar.charAt(0) + "".repeat(Math.max(0, cpf.length() - 2)));
+        if (cpf.equals(cpf_validar) && !sequencia) {
+            return;
+        }
+        throw new IllegalArgumentException ("Cpf inválido");
     }
 }
