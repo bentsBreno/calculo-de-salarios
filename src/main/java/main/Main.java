@@ -66,9 +66,12 @@ public class Main {
     private static void abrirMenuDeCriacaoDeFuncionario() throws InterruptedException {
         System.out.println("Qual é o nome do funcionário?");
         nomeFuncionarioNovo = scanner.nextLine();
+        validarNome(nomeFuncionarioNovo);
+
 
         System.out.println("Qual é o cpf do funcionário?");
         cpfFuncionarioNovo = scanner.next();
+        validarCpf(cpfFuncionarioNovo);
 
         System.out.println(
                 """
@@ -113,6 +116,7 @@ public class Main {
         System.out.println("Qual é o salário semanal do(a) " + nomeFuncionarioNovo + "?");
         System.out.println("Exemplo: 1200.00");
         double salario = scanner.nextFloat();
+        validarSalario(salario);
 
         return new FuncionarioAssalariado(
                 nomeFuncionarioNovo,
@@ -127,12 +131,14 @@ public class Main {
 
         System.out.println("Exemplo: 50");
         double taxaComissao = scanner.nextFloat();
+        validarTaxaComissao(taxaComissao);
 
         System.out.println("Qual é o salário base do(a) "
                 + nomeFuncionarioNovo + "?");
 
         System.out.println("Exemplo: 1200.00");
         double salarioBase = scanner.nextFloat();
+        validarSalario(salarioBase);
 
         return new FuncionarioComissionadoBaseSalario(
                 nomeFuncionarioNovo,
@@ -150,6 +156,7 @@ public class Main {
         System.out.println("Exemplo: 50");
 
         double taxaComissao = scanner.nextFloat();
+        validarTaxaComissao(taxaComissao);
 
         return new FuncionarioComissionado(
                 nomeFuncionarioNovo,
@@ -166,6 +173,7 @@ public class Main {
 
         System.out.println("Exemplo: 50");
         double taxaComissao = scanner.nextFloat();
+        validarTaxaComissao(taxaComissao);
 
         System.out.println("Qual é o salário por hora do(a) "
                 + nomeFuncionarioNovo + "?");
@@ -258,36 +266,42 @@ public class Main {
             case 1 -> {
                 System.out.print("Novo nome: ");
                 String nome = scanner.nextLine();
+                validarNome(nome);
                 funcionarioSelecionado.setNome(nome);
                 System.out.println("Novo nome: " + nome + " definido com sucesso!");
             }
             case 2 -> {
                 System.out.print("Novo CPF: ");
                 String novoCpf = scanner.next();
+                validarCpf(novoCpf);
                 funcionarioSelecionado.setCpf(novoCpf);
                 System.out.println("Novo CPF: " + novoCpf + " definido com sucesso!");
             }
             case 3 -> {
                 System.out.print("Vendas brutas atualizadas: ");
                 double novasVendas = scanner.nextDouble();
+                validarVendasBrutas(novasVendas);
                 funcionarioSelecionado.setVendasBrutas(novasVendas);
                 System.out.println("Nova(s) venda(s) bruta(s): " + novasVendas + " definida(s) com sucesso!");
             }
             case 4 -> {
                 System.out.print("Horas trabalhadas atualizadas: ");
                 Double novasHoras = scanner.nextDouble();
+                validarHorasTrabalhadas(novasHoras);
                 funcionarioSelecionado.setHorasTrabalhadas(novasHoras);
                 System.out.println("Novas horas: " + novasHoras + " definidas com sucesso!");
             }
             case 5 -> {
                 System.out.print("Salario atualizado: ");
                 Double novoSalario = scanner.nextDouble();
+                validarSalario(novoSalario);
                 funcionarioSelecionado.setSalario(novoSalario);
                 System.out.println("Novo salário: " + novoSalario + " definido com sucesso!");
             }
             case 6 -> {
                 System.out.print("Comissão atualizada: ");
                 double novaComissao = scanner.nextDouble();
+                validarTaxaComissao(novaComissao);
                 funcionarioSelecionado.setTaxaComissao(novaComissao);
                 System.out.println("Novo nome: " + novaComissao + " definido com sucesso!");
             }
@@ -319,5 +333,63 @@ public class Main {
     private static void encerrar() {
         System.out.println("\n" + "Encerrando...");
         System.exit(1);
+    }
+
+    private static void validarNome(String nome) {
+        if (nome == null || nome.trim().length() < 3) {
+            throw new IllegalArgumentException("O nome não pode ser vazio e deve ter no mínimo 3 caracteres.");
+        }
+    }
+
+    private static void validarTaxaComissao(double taxaComissao) {
+        if (taxaComissao < 0 || taxaComissao > 100) {
+            throw new IllegalArgumentException("A taxa de comissão deve estar entre 0 e 100.");
+        }
+    }
+
+    private static void validarVendasBrutas(double vendasBrutas) {
+        if (vendasBrutas < 0 || vendasBrutas > 100) {
+            throw new IllegalArgumentException("As vendas brutas devem estar entre 0 e 100.");
+        }
+    }
+
+    private static void validarSalario(Double salario) {
+        if (salario < 0) {
+            throw new IllegalArgumentException("O salário não pode ser negativo.");
+        }
+    }
+
+    private static void validarHorasTrabalhadas(Double horasTrabalhadas) {
+        if (horasTrabalhadas < 0) {
+            throw new IllegalArgumentException("As horas trabalhadas não podem ser negativas.");
+        }
+    }
+
+    private static void validarCpf(String cpf) {
+
+        String cpf_validar = cpf.substring(0, cpf.length() - 2);
+        int reverso = 10;
+        int total = 0;
+        for (int index = 0; index < 19; index++) {
+            if (index > 8) {
+                index -= 9;
+            }
+            total += (int)(cpf_validar.charAt(index)) * reverso;
+            reverso--;
+            if (reverso < 2) {
+                reverso = 11;
+                int d = 11 - (total % 11);
+                if (d > 9) {
+                    d = 0;
+                }
+                total = 0;
+                cpf_validar += d;
+            }
+        }
+        boolean sequencia = cpf_validar.equals(cpf_validar.charAt(0) + "".repeat(Math.max(0, cpf.length() - 2)));
+        if (cpf.equals(cpf_validar) && !sequencia) {
+            return;
+        }
+        throw new IllegalArgumentException ("Cpf inválido.");
     }
 }
