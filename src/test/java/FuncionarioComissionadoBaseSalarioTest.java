@@ -10,7 +10,7 @@ public class FuncionarioComissionadoBaseSalarioTest {
     @Before
     public void inicializar() {
         sara = new FuncionarioComissionadoBaseSalario("Sara",
-                "01824",
+                "90611383020",
                 40,
                 10000,
                 3000.00);

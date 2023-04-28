@@ -9,10 +9,13 @@ public class FuncionarioHoristaTest {
 
     @Before
     public void inicializar() {
-        joao = new FuncionarioHorista("Joao", "12345", 30, 0, 30, 3);
+        joao = new FuncionarioHorista("Joao", "90611383020",
+                30, 0, 30, 3);
     }
     @Test
     public void InstanciaFuncionario_ValidaCalculoRendimento() {
-        assertEquals(90 ,joao.getRendimentos(), 0.1) ;
+        assertEquals(90 ,
+                joao.getRendimentos(),
+                0.1) ;
     }
 }

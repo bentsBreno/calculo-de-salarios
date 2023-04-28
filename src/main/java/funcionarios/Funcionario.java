@@ -16,11 +16,11 @@ public abstract class Funcionario {
                        Double salario,
                        Double horasTrabalhadas){
 
-        this.nome = nome;
-        this.cpf = cpf;
-        this.taxaComissao = taxaComissao;
+        setNome(nome);
+        setCpf(cpf);
+        setSalario(salario);
+        setTaxaComissao(taxaComissao);
         this.vendasBrutas = vendasBrutas;
-        this.salario = salario;
         this.horasTrabalhadas = horasTrabalhadas;
     }
 
@@ -29,9 +29,9 @@ public abstract class Funcionario {
             String cpf,
             Double salario){
 
-        this.nome = nome;
-        this.cpf = cpf;
-        this.salario = salario;
+        setNome(nome);
+        setCpf(cpf);
+        setSalario(salario);
     }
 
     public abstract double getRendimentos();
@@ -50,6 +50,7 @@ public abstract class Funcionario {
     }
 
     public void setCpf(String cpf) {
+        validarCpf(cpf);
         this.cpf = cpf;
     }
 
@@ -116,30 +117,8 @@ public abstract class Funcionario {
     }
 
     private void validarCpf(String cpf) {
-
-        String cpf_validar = cpf.substring(0, cpf.length() - 2);
-        int reverso = 10;
-        int total = 0;
-        for (int index = 0; index < 19; index++) {
-            if (index > 8) {
-                index -= 9;
-            }
-            total += (int)(cpf_validar.charAt(index)) * reverso;
-            reverso--;
-            if (reverso < 2) {
-                reverso = 11;
-                int d = 11 - (total % 11);
-                if (d > 9) {
-                    d = 0;
-                }
-                total = 0;
-                cpf_validar += d;
-            }
+        if(cpf == null || cpf.length() != 11 ) {
+            throw new IllegalArgumentException("Cpf inválido.");
         }
-        boolean sequencia = cpf_validar.equals(cpf_validar.charAt(0) + "".repeat(Math.max(0, cpf.length() - 2)));
-        if (cpf.equals(cpf_validar) && !sequencia) {
-            return;
-        }
-        throw new IllegalArgumentException ("Cpf inválido.");
     }
 }
